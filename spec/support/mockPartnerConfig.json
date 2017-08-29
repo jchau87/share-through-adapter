@@ -2,26 +2,14 @@
     "timeout": 1000,
     "xSlots": {
         "1": {
-            "placementId": "54321",
-            "sizes": [
-                [300, 250]
-            ]
+            "placementKey": "abc123"
         },
         "2": {
-            "placementId": "12345",
-            "sizes": [
-                [300, 600]
-            ]
-        },
-        "3": {
-            "placementId": "654321",
-            "sizes": [
-                [728, 90]
-            ]
+            "placementKey": "def456"
         }
     },
     "mapping": {
-        "htSlot1": ["1", "2"],
-        "htSlot2": ["3"]
+        "htSlot1": ["1"],
+        "htSlot2": ["2"]
     }
 }

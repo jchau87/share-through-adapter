@@ -1,5 +1,93 @@
 {
-    "bid": [],
-    "pass": [],
-    "deals": []
+  "bid": [
+    {
+       "adserverRequestId":"fake-adserver-request-id",
+       "bidId":"some-fake-bid-id",
+       "placement":{
+          "layout":"multiple",
+          "status":"pre-live",
+          "articlesBeforeFirstAd":2,
+          "articlesBetweenAds":2,
+          "allowInstantPlay":true,
+          "placementAttributes":{
+             "template":"&lt;article class=&quot;post has-thumbnail related-article&quot; style=&quot;background-color: rgb(238, 238, 238);&quot;&gt; &lt;img src=&quot;{{thumbnail_url}}&quot; style=&quot;max-width:600px; width: 100%; min-width: 300px;&quot; class=&quot;str-thumbnail&quot;&gt; &lt;div style=&quot;margin: 10px&quot;&gt; &lt;h3 class=&quot;headline&quot;&gt; &lt;a name=&quot;&amp;amp;lpos=EarthBox&quot; class=&quot;ui-link&quot; id=&quot;{{creative_key}}-1&quot;&gt;{{title}}&lt;/a&gt; &lt;/h3&gt; &lt;div class=&quot;dek&quot;&gt;{{promoted_by_text}} {{advertiser}}&lt;/div&gt; &lt;/div&gt; &lt;/article&gt;",
+             "promoted_by_text":"Ad by",
+             "allow_dynamic_cropping":true,
+             "dfp_path":"",
+             "featured_content":[
+                {
+                   "creative":{
+                      "creative_key":"fake_featured_content_creative_key",
+                      "advertiser":"The Atlantic",
+                      "title":"Introducing: The Atlantic's Science Section",
+                      "description":"The Atlantic has been covering science - and covering it well - for some time now. But until today, we have hosted most of our science coverage here at TheAtlantic.com in our Technology and Health sections. From today on, Science will have its own section.",
+                      "thumbnail_url":"https://cdn.theatlantic.com/assets/media/img/mt/2015/09/Earthrise2/lead_960.jpg?1442234751",
+                      "content_url":"https://www.theatlantic.com/science/archive/2015/09/introducing-the-atlantics-new-science-section/405088/",
+                      "media_url":"https://www.theatlantic.com/science/archive/2015/09/introducing-the-atlantics-new-science-section/405088/",
+                      "share_url":"https://www.theatlantic.com/science/archive/2015/09/introducing-the-atlantics-new-science-section/405088/",
+                      "action":"clickout",
+                      "promoted_by_text":"Gladly brought to you by: "
+                   }
+                }
+             ],
+             "strOptOutIcon":true,
+             "strOptOutUrl":"https://platform-cdn.sharethrough.com/privacy-policy?language=EN",
+             "enable_link_redirection":false,
+             "customCardCss":"body{background-color:#e6e6e6;}"
+          },
+          "metadata":{
+             "cardExperience":true,
+             "strOptOutIcon":true
+          }
+       },
+       "creatives":[
+          {
+             "auctionWinId":"fake-auction-win-id",
+             "creative":{
+                "creative_key":"fake-creative-key",
+                "campaign_key":"fake-campaign-key",
+                "variant_key":"fake-variant-key",
+                "beaconMetaData":{
+                   "cpeBid":"900"
+                },
+                "beacons":{
+                   "impression":[
+                      "//example.com/impression"
+                   ],
+                   "visible":[
+                      "//secure-us.imrworldwide.com/cgi-bin/m?ci=ade2013-ca&at=view&rt=banner&st=image&ca=SharethrougTest&cr=creative&pc=55c05f2dd5d0d521cd1e94de&ce=Sharethrough&r=[timestamp]",
+                      "//h.nexac.com/e/a-1177/s-2113/c-1078/g-3628.xgi?pkey=bijo15bijox40&chpcm=&chpsg=&chpcr=&chpck=&rand=[timestamp]&chpth=55c05f2dd5d0d521cd1e94de%27"
+                   ],
+                   "click":[
+                      "//example.com/click"
+                   ],
+                   "play":[
+                      "//example.com/play"
+                   ],
+                   "win-notification":[
+                      "//example.com/win"
+                   ]
+                },
+                "advertiser":"Knorr",
+                "title":"Discover Your Flavour Profile",
+                "description":"Discover Your Flavour Profile",
+                "thumbnail_url":"//static.sharethrough.com/creative_workflow/creative_thumbnails/25431/images/thumb_320/vertical-video-placeholder.jpg",
+                "media_url":"https://static.sharethrough.com/m/hosted_video/9fYxafAQ5e8NU89RUe2WL4Nk/video.mp4",
+                "share_url":"http://www.sharethrough.com",
+                "action":"hosted-video-vertical",
+                "brand_logo_url":"",
+                "instant_play_mobile_url":"https://static.sharethrough.com/m/instant_play_mobile/9fYxafAQ5e8NU89RUe2WL4Nk/sprite0.jpg",
+                "instant_play_mobile_count":4,
+                "instant_play_mobile_width":270,
+                "instant_play_mobile_height":480,
+                "video_aspect_ratio":1.7778,
+                "force_click_to_play":false
+             },
+             "cpm":5.291108810172457
+          }
+       ]
+    }
+  ],
+  "pass": [],
+  "deals": []
 }

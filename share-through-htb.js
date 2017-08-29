@@ -89,7 +89,6 @@ function ShareThroughHtb(configs) {
      * @return {object}
      */
     function __generateRequestObj(returnParcels) {
-
         /* =============================================================================
          * STEP 2  | Generate Request URL
          * -----------------------------------------------------------------------------
@@ -148,11 +147,16 @@ function ShareThroughHtb(configs) {
          */
 
         /* ---------------------- PUT CODE HERE ------------------------------------ */
-        var queryObj = {};
-        var callbackId = System.generateUniqueId();
+        var queryObj = {
+          placement_key: returnParcels[0].xSlotRef.placementKey,
+          bidId: returnParcels[0].requestId,
+          hbVersion: 'index exchange version', // TODO: try and read partner config
+          hbSource: 'indexExchange',
+          strVersion: '2.0.0' // TODO: try and read partner config
+        };
 
         /* Change this to your bidder endpoint.*/
-        var baseUrl = Browser.getProtocol() + '//someAdapterEndpoint.com/bid';
+        var baseUrl = Browser.getProtocol() + '//btlr.sharethrough.com/header-bid/v1';
 
         /* ---------------- Craft bid request using the above returnParcels --------- */
 
@@ -161,8 +165,7 @@ function ShareThroughHtb(configs) {
 
         return {
             url: baseUrl,
-            data: queryObj,
-            callbackId: callbackId
+            data: queryObj
         };
     }
 
@@ -177,11 +180,11 @@ function ShareThroughHtb(configs) {
      * If the endpoint does not have an appropriate field for this, set the profile's
      * callback type to CallbackTypes.CALLBACK_NAME and omit this function.
      */
-    function adResponseCallback(adResponse) {
-        /* get callbackId from adResponse here */
-        var callbackId = 0;
-        __baseClass._adResponseStore[callbackId] = adResponse;
-    }
+    // function adResponseCallback(adResponse) {
+    //     /* get callbackId from adResponse here */
+    //     var callbackId = 0;
+    //     __baseClass._adResponseStore[callbackId] = adResponse;
+    // }
     /* -------------------------------------------------------------------------- */
 
     /* Helpers
@@ -215,7 +218,7 @@ function ShareThroughHtb(configs) {
      * attached to each one of the objects for which the demand was originally requested for.
      */
     function __parseResponse(sessionId, adResponse, returnParcels) {
-
+        console.log(adResponse)
         var unusedReturnParcels = returnParcels.slice();
 
         /* =============================================================================
@@ -247,22 +250,7 @@ function ShareThroughHtb(configs) {
             var curReturnParcel = returnParcels[j];
 
             /* ----------- Fill this out to find a matching bid for the current parcel ------------- */
-            var curBid;
-
-            for (var i = 0; i < bids.length; i++) {
-
-                /**
-                 * This section maps internal returnParcels and demand returned from the bid request.
-                 * In order to match them correctly, they must be matched via some criteria. This
-                 * is usually some sort of placements or inventory codes. Please replace the someCriteria
-                 * key to a key that represents the placement in the configuration and in the bid responses.
-                 */
-
-                if (curReturnParcel.xSlotRef.someCriteria === bids[i].someCriteria) {
-                    curBid = bids[i];
-                    break;
-                }
-            }
+            var curBid = bids;
 
             /* ------------------------------------------------------------------------------------*/
 
@@ -283,7 +271,7 @@ function ShareThroughHtb(configs) {
             /* Using the above variable, curBid, extract various information about the bid and assign it to
             * these local variables */
 
-            var bidPrice = curBid.price; /* the bid price for the given slot */
+            var bidPrice = curBid.creative.cpm; /* the bid price for the given slot */
             var bidSize = [curBid.width, curBid.height]; /* the size of the given slot */
             var bidCreative = curBid.adm; /* the creative/adm for the given slot that will be rendered if is the winner. */
             var bidDealId = curBid.dealid; /* the dealId if applicable for this slot. */
@@ -395,9 +383,9 @@ function ShareThroughHtb(configs) {
                 pmid: 'ix_shth_dealid'
             },
             lineItemType: Constants.LineItemTypes.ID_AND_SIZE,
-            callbackType: Partner.CallbackTypes.ID, // Callback type, please refer to the readme for details
-            architecture: Partner.Architectures.SRA, // Request architecture, please refer to the readme for details
-            requestType: Partner.RequestTypes.ANY // Request type, jsonp, ajax, or any.
+            callbackType: Partner.CallbackTypes.NONE, // Callback type, please refer to the readme for details
+            architecture: Partner.Architectures.MRA, // Request architecture, please refer to the readme for details
+            requestType: Partner.RequestTypes.AJAX // Request type, jsonp, ajax, or any.
         };
         /* ---------------------------------------------------------------------------------------*/
 
@@ -419,17 +407,14 @@ function ShareThroughHtb(configs) {
         var bidTransformerConfigs = {
             //? if (FEATURES.GPT_LINE_ITEMS) {
             targeting: {
-                inputCentsMultiplier: 1, // Input is in cents
-                outputCentsDivisor: 1, // Output as cents
-                outputPrecision: 0, // With 0 decimal places
+                inputCentsMultiplier: 100, // Input is in dollars
+                outputCentsDivisor: 100, // Output as dollars TODO: verify
+                outputPrecision: 3, // With 3 decimal places
                 roundingType: 'FLOOR', // jshint ignore:line
                 floor: 0,
                 buckets: [{
                     max: 2000, // Up to 20 dollar (above 5 cents)
                     step: 5 // use 5 cent increments
-                }, {
-                    max: 5000, // Up to 50 dollars (above 20 dollars)
-                    step: 100 // use 1 dollar increments
                 }]
             },
             //? }
@@ -465,8 +450,8 @@ function ShareThroughHtb(configs) {
 
         __baseClass = Partner(__profile, configs, null, {
             parseResponse: __parseResponse,
-            generateRequestObj: __generateRequestObj,
-            adResponseCallback: adResponseCallback
+            generateRequestObj: __generateRequestObj
+            // adResponseCallback: adResponseCallback
         });
     })();
 
@@ -499,8 +484,8 @@ function ShareThroughHtb(configs) {
         //? if (TEST) {
         render: __render,
         parseResponse: __parseResponse,
-        generateRequestObj: __generateRequestObj,
-        adResponseCallback: adResponseCallback,
+        generateRequestObj: __generateRequestObj
+        // adResponseCallback: adResponseCallback,
         //? }
     };
 
